@@ -1,12 +1,19 @@
 import * as ledger from '../actors/ledger.js';
-import { getPrometheusPayload } from '../utils/prometheus.js';
 
-export default async function getLedgerStats(req, res) {
+function icResponseToObject(icResponse) {
+  return JSON.parse(JSON.stringify(icResponse, (key, value) =>
+    typeof value === 'bigint'
+      ? Number(value)
+      : value
+  ));
+}
+
+export default async function stats(req, res) {
   try {
     const ledgerActor = await ledger.createActor();
     const stats = await ledgerActor.stats();
 
-    const response = getPrometheusPayload(stats);
+    const response = icResponseToObject(stats);
     res.json(response);
   } catch (error) {
     console.error(error);
