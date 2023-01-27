@@ -19,10 +19,10 @@ LEDGER_CANISTER_ID="ryjl3-tyaaa-aaaaa-aaaba-cai"
 
 ## Project structure
 
-`index.js` - starting point of application
-`server.js` - point of setuping Express
-`actions/` - folder with actions that handles HTTP requests
-`actors/` - folder with actors creating, holding Candid declarations and factories
-`actors/declarations/` - folder with Candid declarations (TBD: put here anchor to info tells how get those declarations)
-`utils/` - folder containing helpers
+`index.js` - starting point of application  
+`server.js` - point of setuping Express  
+`actions/` - folder with actions that handles HTTP requests  
+`actors/` - folder with actors creating, holding Candid declarations and factories  
+`actors/declarations/` - folder with Candid declarations (TBD: put here anchor to info tells how get those declarations)  
+`utils/` - folder containing helpers  
 
