@@ -1,30 +1,18 @@
-import fetch from 'node-fetch';
-import pkgAgent from '@dfinity/agent';
+import * as dotenv from 'dotenv';
+dotenv.config({ path: `./.${process.env.NODE_ENV}.env` });
 
-const {HttpAgent, Actor} = pkgAgent;
+import createServer from './server.js';
 
-import {idlFactory} from './declarations/ledger.did.js';
+const port = process.env.LOCAL_PORT || 443;
 
-const actorIC = async () => {
-    const canisterId = 'ryjl3-tyaaa-aaaaa-aaaba-cai';
+try {
+  const server = createServer();
 
-    const host = 'http://127.0.0.1:4943/';
+  console.log(`Starting server on port ${port}...`);
 
-    const agent = new HttpAgent({fetch, host});
-
-    // Local only
-    await agent.fetchRootKey();
-
-    return Actor.createActor(idlFactory, {
-        agent,
-        canisterId
-    });
-};
-
-async function main() {
-    const actor = await actorIC();
-    const stats = await actor.stats();
-    console.log(stats);
+  server.listen(port, () => {
+    console.log('Successfully started!');
+  });
+} catch (error) {
+  console.error(`Cannot start server on port ${port} with error ${error.message} ${error.trace}`);
 }
-
-main();
